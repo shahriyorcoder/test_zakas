@@ -15,7 +15,12 @@ class Category(models.Model):
 
     def __str__(self):
         return self.title
+    
 
+class Appect_user(models.Model):
+    users = models.OneToOneField(User, on_delete=models.CASCADE)
+    is_active = models.BooleanField(default=False)
+    
 
 class Task(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
@@ -24,6 +29,8 @@ class Task(models.Model):
     b = models.CharField(max_length=150)
     c = models.CharField(max_length=150)
     d = models.CharField(max_length=150)
+
+
     togri_javob = models.CharField(max_length=30, choices=TOGRI, default='a')
     time = models.DateTimeField(auto_now_add=True)
 

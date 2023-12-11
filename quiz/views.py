@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import Task , Category ,Taskusers
+from .models import Task , Category ,Taskusers,Appect_user
 from django.contrib.auth import authenticate, login, logout 
 from .forms import UserCreationForm, LoginForm
 import datetime
@@ -9,10 +9,22 @@ from django.views.generic.edit import UpdateView
 now = datetime.datetime.now()
 
 def homepage(request):
-    print(now)
-    tasks = Task.objects.all() 
+
+
+    tasks = Task.objects.all()
     if request.user.is_active == True:
+        # request.user.appect_user_set.all()
+ 
+
+        # datas = Appect_user.objects.create(
+        #         users=request.user
+        #     )
+            # print(datas)
+        # datas.save()
         if request.method == 'POST':
+
+        
+
             if request.user.taskusers_set.all().count() == 0:
                 Taskusers.objects.create(
                     username = request.user,
@@ -29,6 +41,7 @@ def homepage(request):
                 return redirect('/')
         context={
             'task':tasks,
+            'users_appect':Appect_user.objects.all(),
             'yourtest':request.user.taskusers_set.all(),
         }
     else:
